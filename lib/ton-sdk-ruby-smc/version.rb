@@ -23,3 +23,5 @@ GNU Lesser General Public License for more details.
 
 module TonSdkRubySmc
   VERSION = "0.0.1"
+
+end

@@ -18,7 +18,7 @@ if file[/VERSION = "(\d+)\.(\d+)\.(\d+)"/]
   version = "#{major}.#{minor}.#{current.to_i + 1}"
   p version
   data = file
-  data.gsub!(/VERSION\s+=[\s\S]+$/, "VERSION = \"#{version}\"\n")
+  data.gsub!(/VERSION\s+=[\s\S]+?$/, "VERSION = \"#{version}\"\n")
   p data
   p version_file
   p 'update version'
