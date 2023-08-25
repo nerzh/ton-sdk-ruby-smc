@@ -20,6 +20,8 @@ Gem::Specification.new do |spec|
   spec.bindir        = "bin"
   spec.executables   = ["ton-sdk-ruby-smc"]
 
+  spec.add_dependency 'ton-sdk-ruby', '~> 0.0.1'
+
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "byebug"
   spec.add_development_dependency "rspec"
