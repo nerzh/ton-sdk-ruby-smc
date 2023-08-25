@@ -21,9 +21,17 @@ GNU Lesser General Public License for more details.
 
 =end
 
+require 'ton-sdk-ruby'
+require_relative './ton-sdk-ruby-smc/helpers/constants'
 require_relative './ton-sdk-ruby-smc/version'
 require_relative './ton-sdk-ruby-smc/wallets/pwv2'
-require 'ton-sdk-ruby'
+require_relative './ton-sdk-ruby-smc/wallets/wallet_v3'
+require_relative './ton-sdk-ruby-smc/wallets/wallet_v4'
+require_relative './ton-sdk-ruby-smc/helpers/helpers'
+require_relative './ton-sdk-ruby-smc/tokens/jetton'
+require_relative './ton-sdk-ruby-smc/tokens/nft'
+require_relative './ton-sdk-ruby-smc/tokens/metadata'
+
 
 module TonSdkRubySmc
 end
