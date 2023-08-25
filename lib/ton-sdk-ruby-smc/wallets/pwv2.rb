@@ -33,6 +33,7 @@ serialization in hexadecimal representation.
 
 Respect the rights of open source software. Thanks!
 If you notice copyright violation, please create an issue.
+https://github.com/nerzh/ton-sdk-ruby-smc/issues
 =end
 
 module TonSdkRubySmc
@@ -71,6 +72,8 @@ module TonSdkRubySmc
     end
     
     def build_transfer(transfers, seqno, private_key, is_init = false, timeout = 60)
+      raise 'Transfers must be an [PWV2Transfer]' unless transfers.size > 0 && transfers.first.is_a?(PWV2Transfer)
+      raise "PWV2 can handle only 255 transfers at once" unless transfers.size <= 255
       actions = []
     
       transfers.each do |t|
