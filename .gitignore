@@ -20,3 +20,4 @@
 api.json
 test.rb
 gems
+.vscode/*
