@@ -1,10 +1,8 @@
 #!/usr/bin/env ruby
 
-# MODULE_NAME = 'TonSdkRubySmc'
 LIB_NAME = 'ton-sdk-ruby-smc'
 
 script_file_path = File.expand_path(File.dirname(__FILE__))
-# GEM_DIR = "#{script_file_path}/.."
 GEM_DIR = "#{script_file_path}"
 
 version_file = "#{GEM_DIR}/lib/#{LIB_NAME}/version.rb"
@@ -18,7 +16,7 @@ if file[/VERSION = "(\d+)\.(\d+)\.(\d+)"/]
   version = "#{major}.#{minor}.#{current.to_i + 1}"
   p version
   data = file
-  data.gsub!(/VERSION\s+=[\s\S]+?$/, "VERSION = \"#{version}\"\n")
+  data.gsub!(/VERSION\s+=[\s\S]+?$/, "VERSION = \"#{version}\"")
   p data
   p version_file
   p 'update version'
