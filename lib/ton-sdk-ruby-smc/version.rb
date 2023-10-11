@@ -22,5 +22,5 @@ GNU Lesser General Public License for more details.
 =end
 
 module TonSdkRubySmc
-  VERSION = "0.0.3"
+  VERSION = "0.0.4"
 end

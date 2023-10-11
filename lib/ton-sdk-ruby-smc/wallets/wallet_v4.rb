@@ -57,6 +57,7 @@ module TonSdkRubySmc
   end
 
   class WalletV4
+    extend TonSdkRuby
     extend TonSdkRubySmc
 
     attr_accessor :code, :pubkey, :init, :address, :sub_wallet_id
