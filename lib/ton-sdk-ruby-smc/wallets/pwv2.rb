@@ -42,6 +42,9 @@ module TonSdkRubySmc
   PWV2_CODE = 'B5EE9C7241010101003D000076FF00DDD40120F90001D0D33FD30FD74CED44D0D3FFD70B0F20A4830FA90822C8CBFFCB0FC9ED5444301046BAF2A1F823BEF2A2F910F2A3F800ED552E766412'
 
   class PWV2Transfer
+    extend TonSdkRuby
+    extend TonSdkRubySmc
+
     attr_accessor :destination, :bounce, :value, :mode, :body, :init
 
     def initialize(destination, bounce, value, mode, body = nil, init = nil)
@@ -63,19 +66,19 @@ module TonSdkRubySmc
       @init = build_state_init
       @address = Address.new("#{wc}:#{init.cell.hash}")
     end
-    
+
     def self.parse_storage(storage_slice)
       {
         pubkey: storage_slice.load_bytes(32),
         seqno: storage_slice.load_uint(16)
       }
     end
-    
+
     def build_transfer(transfers, seqno, private_key, is_init = false, timeout = 60)
       raise 'Transfers must be an [PWV2Transfer]' unless transfers.size > 0 && transfers.first.is_a?(PWV2Transfer)
       raise "PWV2 can handle only 255 transfers at once" unless transfers.size <= 255
       actions = []
-    
+
       transfers.each do |t|
         info = CommonMsgInfo.new(
           IntMsgInfo.new(
@@ -85,7 +88,7 @@ module TonSdkRubySmc
             value: t.value
           )
         )
-    
+
         action = OutAction.new(
           ActionSendMsg.new(
             tag: 'action_send_msg',
@@ -99,34 +102,34 @@ module TonSdkRubySmc
             )
           )
         )
-    
+
         actions.push(action)
       end
-    
+
       outlist = OutList.new(OutListOptions.new(actions: actions))
-    
+
       msg_inner = Builder.new
         # .store_uint((Time.now.to_i + timeout).to_s, 64)
         .store_uint((1000 + timeout).to_s, 64)
         .store_uint(seqno.to_s, 16)
         .store_ref(outlist.cell)
         .cell
-        
+
       sign = sign_cell(msg_inner, private_key)
-    
+
       msg_body = Builder.new
         .store_bytes(sign.unpack('C*'))
         .store_ref(msg_inner)
-        
+
       info = CommonMsgInfo.new(
         ExtInMsgInfo.new(
           tag: 'ext_in_msg_info',
           dest: @address
         )
       )
-    
+
       init_t = is_init ? init : nil
-      
+
       m_cell = msg_body.cell
 
       Message.new(
@@ -141,36 +144,12 @@ module TonSdkRubySmc
     private
 
     def build_state_init()
-      data = Builder.new() 
+      data = Builder.new()
       data.store_bytes(hex_to_bytes(pubkey))
       data.store_uint(0, 16)
-      
+
       options = StateInitOptions.new(code: code, data: data.cell)
       TonSdkRuby::StateInit.new(options)
     end
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -43,6 +43,9 @@ module TonSdkRubySmc
   SUB_WALLET_ID = 698983191
 
   class WalletV3Transfer
+    extend TonSdkRuby
+    extend TonSdkRubySmc
+
     attr_accessor :destination, :bounce, :value, :mode, :body, :init
 
     def initialize(destination, bounce, value, mode, body = nil, init = nil)
@@ -56,6 +59,9 @@ module TonSdkRubySmc
   end
 
   class WalletV3
+    extend TonSdkRuby
+    extend TonSdkRubySmc
+
     attr_accessor :code, :pubkey, :init, :address, :sub_wallet_id
 
     def initialize(pubkey, wc = 0, sub_wallet_id = SUB_WALLET_ID)

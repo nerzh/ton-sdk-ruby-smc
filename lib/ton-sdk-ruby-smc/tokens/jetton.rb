@@ -25,6 +25,8 @@ module TonSdkRubySmc
   include TonSdkRuby
 
   class Jetton
+    extend TonSdkRuby
+    extend TonSdkRubySmc
 
 =begin
 transfer#0f8a7ea5 query_id:uint64 amount:(VarUInteger 16) destination:MsgAddress

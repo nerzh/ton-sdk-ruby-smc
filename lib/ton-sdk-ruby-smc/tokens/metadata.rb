@@ -25,6 +25,9 @@ module TonSdkRubySmc
   include TonSdkRuby
 
   class MetaData
+    extend TonSdkRuby
+    extend TonSdkRubySmc
+
     def self.parse_token_metadata(da_slice)
       require_type('da_slice', da_slice, Slice)
       pum_purum_tag = da_slice.load_uint(8)

@@ -25,10 +25,12 @@ module TonSdkRubySmc
   include TonSdkRuby
 
   class NFT
-    
+    extend TonSdkRuby
+    extend TonSdkRubySmc
+
 =begin
-transfer#5fcc3d14 query_id:uint64 new_owner:MsgAddress response_destination:MsgAddress 
-                  custom_payload:(Maybe ^Cell) forward_amount:(VarUInteger 16) 
+transfer#5fcc3d14 query_id:uint64 new_owner:MsgAddress response_destination:MsgAddress
+                  custom_payload:(Maybe ^Cell) forward_amount:(VarUInteger 16)
                   forward_payload:(Either Cell ^Cell) = InternalMsgBody;
 =end
     def self.build_transfer(query_id, new_owner, response_destination, forward_amount, forward_payload, custom_payload = nil)
@@ -45,8 +47,8 @@ transfer#5fcc3d14 query_id:uint64 new_owner:MsgAddress response_destination:MsgA
       body.store_address(new_owner)
       body.store_address(response_destionation)
       body.store_maybe_ref(custom_payload)
-      body.store_coins(forward_amount)      
-      
+      body.store_coins(forward_amount)
+
       if (body.bits.size + forward_payload.bits.size > 1023) || body.refs.size + forward_payload.refs.size > 4
         body.store_bit(1)
         body.store_ref(forward_payload)
