@@ -43,6 +43,7 @@ module TonSdkRubySmc
   SUB_WALLET_ID = 698983191
 
   class WalletV3Transfer
+    include TonSdkRuby
     extend TonSdkRuby
     extend TonSdkRubySmc
 
@@ -59,6 +60,7 @@ module TonSdkRubySmc
   end
 
   class WalletV3
+    include TonSdkRuby
     extend TonSdkRuby
     extend TonSdkRubySmc
 
