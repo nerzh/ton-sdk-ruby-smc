@@ -125,17 +125,15 @@ module TonSdkRubySmc
         )
       )
       init_t = is_init ? init : nil
-      m_cell = message_body.cell
+      body_cell = message_body.cell
 
-      message = Message.new(
+      Message.new(
         MessageOptions.new(
           info: info,
           init: init_t,
-          body: m_cell
+          body: body_cell
         )
       )
-
-      message
     end
 
     private

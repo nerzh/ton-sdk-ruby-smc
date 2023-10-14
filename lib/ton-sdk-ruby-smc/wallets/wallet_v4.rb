@@ -95,11 +95,11 @@ module TonSdkRubySmc
     end
 
     def build_transfer(transfers, seqno, private_key, timeout = 60)
-      raise "Transfers must be an [WalletV3Transfer]" unless transfers.size > 0 && transfers.first.is_a?(WalletV3Transfer)
-      raise "Wallet v3 can handle only 4 transfers at once" unless transfers.size <= 4
+      raise "Transfers must be an [WalletV4Transfer]" unless transfers.size > 0 && transfers.first.is_a?(WalletV4Transfer)
+      raise "Wallet v4 can handle only 4 transfers at once" unless transfers.size <= 4
       body = Builder.new()
       body.store_uint(sub_wallet_id, 32)
-      body.store_uint((Time.now.to_i + timeout).to_s, 32)
+      body.store_uint((Time.now.to_i + timeout), 32)
       body.store_uint(seqno, 32)
       transfers.each do |t|
         info = CommonMsgInfo.new(
@@ -136,13 +136,13 @@ module TonSdkRubySmc
         )
       )
       init_t = seqno == 0 ? init : nil
-      m_cell = msg_body.cell
+      body_cell = msg_body.cell
 
       Message.new(
         MessageOptions.new(
           info: info,
           init: init_t,
-          body: m_cell,
+          body: body_cell,
         )
       )
     end
