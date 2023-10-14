@@ -94,7 +94,7 @@ module TonSdkRubySmc
       }
     end
 
-    def build_transfer(transfers, seqno, private_key, timeout = 60)
+    def build_transfer(transfers, seqno, private_key, is_init = false, timeout = 60)
       raise "Transfers must be an [WalletV4Transfer]" unless transfers.size > 0 && transfers.first.is_a?(WalletV4Transfer)
       raise "Wallet v4 can handle only 4 transfers at once" unless transfers.size <= 4
       body = Builder.new()
@@ -135,7 +135,8 @@ module TonSdkRubySmc
           dest: @address,
         )
       )
-      init_t = seqno == 0 ? init : nil
+
+      init_t = is_init ? init : nil
       body_cell = msg_body.cell
 
       Message.new(
