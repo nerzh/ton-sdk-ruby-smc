@@ -137,7 +137,7 @@ module TonSdkRubySmc
       )
 
       init_t = is_init ? init : nil
-      body_cell = msg_body.cell
+      body_cell = message_body.cell
 
       Message.new(
         MessageOptions.new(
