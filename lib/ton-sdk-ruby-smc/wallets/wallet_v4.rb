@@ -101,6 +101,7 @@ module TonSdkRubySmc
       body.store_uint(sub_wallet_id, 32)
       body.store_uint((Time.now.to_i + timeout), 32)
       body.store_uint(seqno, 32)
+      body.store_uint(0, 8)
       transfers.each do |t|
         info = CommonMsgInfo.new(
           IntMsgInfo.new(
