@@ -89,7 +89,8 @@ module TonSdkRubySmc
         sub_wallet_id: storage_slice.load_uint(32),
         pubkey: storage_slice.load_bytes(32),
         plugins_list: storage_slice
-          .load_dict(8 + 256, { deserializers: deserializers }).each { |key, value| { key: key, value: value } }
+          .load_dict(8 + 256, { deserializers: deserializers })
+          .each { |key, value| { key: key, value: value } }
           .map { |item| item[:key] },
       }
     end

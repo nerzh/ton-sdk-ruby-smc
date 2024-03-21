@@ -93,7 +93,6 @@ module TonSdkRubySmc
       transfers.each do |t|
         info = CommonMsgInfo.new(
           IntMsgInfo.new(
-            tag: "int_msg_info",
             dest: t.destination,
             bounce: t.bounce,
             value: t.value,
@@ -120,7 +119,6 @@ module TonSdkRubySmc
 
       info = CommonMsgInfo.new(
         ExtInMsgInfo.new(
-          tag: 'ext_in_msg_info',
           dest: address
         )
       )

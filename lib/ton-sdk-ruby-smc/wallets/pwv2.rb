@@ -109,8 +109,7 @@ module TonSdkRubySmc
       outlist = OutList.new(OutListOptions.new(actions: actions))
 
       msg_inner = Builder.new
-        # .store_uint((Time.now.to_i + timeout).to_s, 64)
-        .store_uint((1000 + timeout).to_s, 64)
+        .store_uint((Time.now.to_i + timeout).to_s, 64)
         .store_uint(seqno.to_s, 16)
         .store_ref(outlist.cell)
         .cell

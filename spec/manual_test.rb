@@ -32,6 +32,28 @@ describe TonSdkRubySmc do
   before(:all) do
   end
 
+  it 'manual_test_hiload_wallet_v2' do
+      pk_s = "..."
+      sk_s = "..."
+      api_key = "..."
+      t_center = TonCenter.new(api_key)
+      provider = Provider.new(t_center)
+
+      wallet = HighloadWalletV2.new(pk_s)
+      address = wallet.address.to_s({bounceable: false})
+      comment = Builder.new.store_uint(0, 32).store_string('My first transaction').cell
+      comment2 = Builder.new.store_uint(0, 32).store_string('My first transaction 2').cell
+      transfers = [
+        HighloadWalletV2Transfer.new(Address.new(address), false, Coins.new(0.0001), 3, comment),
+        HighloadWalletV2Transfer.new(Address.new(address), false, Coins.new(0.000101), 3, comment2)
+      ]
+
+      is_init = false
+      transfer = wallet.build_transfer(transfers, sk_s, is_init)
+      boc = bytes_to_base64(serialize(transfer.cell))
+      p provider.send_boc(boc)
+  end
+
   it 'manual_test' do
     pk_s = "e4b86837416ee13bfc0556e755011c2a568d92a25e27768df2b8d3c76a67f567"
     sk_s = "9c10a3c105a762d5be4514a7cd660a51ae10cfc7af442d6342c40a24b8e3bc8c"
